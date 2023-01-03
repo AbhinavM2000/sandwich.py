@@ -1,14 +1,15 @@
 <?php
-  $to = 'abnvm1@gmail.com,dhanusmala@gmail.com';
-  $subject = 'Mailing list subscription';
-  $message = 'A user has subscribed to the mailing list: ' . $_POST['email'];
-  $headers = 'From: webmaster@correlationlab.com' . "\r\n" .
-             'Reply-To: webmaster@correlationlab.com' . "\r\n" .
-             'X-Mailer: PHP/' . phpversion();
+  $email = $_POST['email'];
+  $file = 'emails.txt';
   
-  if (mail($to, $subject, $message, $headers)) {
-    echo 'Email sent successfully!';
-  } else {
-    echo 'Error sending email';
-  }
+  // Open the file in append mode
+  $handle = fopen($file, 'a');
+  
+  // Append the email address to the file
+  fwrite($handle, $email . "\n");
+  
+  // Close the file
+  fclose($handle);
+  
+  echo 'Email address saved successfully!';
 ?>
